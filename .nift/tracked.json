@@ -1,0 +1,24 @@
+{
+	"tracked": [
+		{ "name": "index",    "title": "aalavilli",             "template": "templates/page.html" },
+		{ "name": "about",    "title": "aalavilli // about",    "template": "templates/page.html" },
+		{ "name": "work",     "title": "aalavilli // work",     "template": "templates/page.html" },
+		{ "name": "blog",     "title": "aalavilli // blog",     "template": "templates/page.html" },
+		{ "name": "pictures", "title": "aalavilli // pictures", "template": "templates/page.html" },
+		{ "name": "404",      "title": "aalavilli // 404",      "template": "templates/page.html" },
+		{
+			"name": "style",
+			"title": "style",
+			"template": "templates/raw",
+			"content-ext": ".css",
+			"output-ext": ".css"
+		},
+		{
+			"name": "site",
+			"title": "site",
+			"template": "templates/raw",
+			"content-ext": ".js",
+			"output-ext": ".js"
+		}
+	]
+}

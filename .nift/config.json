@@ -1,0 +1,21 @@
+{
+	"config": {
+		"content-dir": "content/",
+		"content-ext": ".html",
+		"output-dir": "./",
+		"output-ext": ".html",
+		"script-ext": ".f",
+		"default-template": "templates/page.html",
+		"backup-scripts": true,
+		"build-threads": -1,
+		"paginate-threads": -1,
+		"incremental-mode": "modified",
+		"root-branch": "##unset##",
+		"output-branch": "##unset##",
+		"lolcat-default": false,
+		"lolcat-cmd": "nift lolcat-cc -f",
+		"terminal": "normal",
+		"unix-editor": "vim",
+		"windows-editor": "notepad"
+	}
+}

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Collapse the entire repo to a single, parentless "website" commit pinned to
+# the Unix epoch, keeping the current file tree. Runs after every commit, so
+# any commit you make gets rolled into that one commit (same message + date).
+#
+# commit-tree with no -p makes a rootless commit; update-ref moves the branch
+# to it (working tree/index are untouched since the tree is identical).
+# Neither plumbing command fires hooks, so there's no recursion.
+
+tree=$(git rev-parse HEAD^{tree}) || exit 0
+
+new=$(
+  GIT_AUTHOR_NAME='llama2700' \
+  GIT_AUTHOR_EMAIL='abhi.alavilli@gmail.com' \
+  GIT_AUTHOR_DATE='@0 +0000' \
+  GIT_COMMITTER_NAME='llama2700' \
+  GIT_COMMITTER_EMAIL='abhi.alavilli@gmail.com' \
+  GIT_COMMITTER_DATE='@0 +0000' \
+  git commit-tree "$tree" -m 'website'
+) || exit 0
+
+# Only move the ref if the collapsed commit differs from HEAD (idempotent:
+# a given tree always hashes to the same commit here).
+[ "$new" = "$(git rev-parse HEAD)" ] || git update-ref HEAD "$new"

@@ -1,0 +1,44 @@
+<h1>Pictures</h1>
+
+<div class="gallery">
+	<img src="/images/gallery/IMG_0013.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_2269.jpeg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_6941.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_6991.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_6993.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7002.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7133.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7146.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7163.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7186.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7201.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_7669.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_8202.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_8274.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_8311.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_8850.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_8854.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9020.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9091.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9101.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9147.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9447.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9768.jpg" alt="" loading="lazy">
+	<img src="/images/gallery/IMG_9862.jpg" alt="" loading="lazy">
+</div>
+
+<dialog id="lightbox"><img alt=""></dialog>
+
+<a class="back" href="/">&larr; home</a>
+
+<script>
+	const lightbox = document.getElementById('lightbox');
+
+	document.querySelectorAll('.gallery img').forEach(img =>
+		img.addEventListener('click', () => {
+			lightbox.querySelector('img').src = img.src;
+			lightbox.showModal();
+		}));
+
+	lightbox.addEventListener('click', () => lightbox.close());
+</script>

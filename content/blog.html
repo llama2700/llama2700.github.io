@@ -1,0 +1,37 @@
+<h1>Blog</h1>
+
+<ol class="feed" id="feed">
+	<li class="empty">loading&hellip;</li>
+</ol>
+
+<a class="back" href="/">&larr; home</a>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<script>
+	const feed = document.getElementById('feed');
+
+	function post(p) {
+		const date = new Date(p.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+		const li = document.createElement('li');
+		li.innerHTML = `<h2></h2><time>${date}</time><div class="post-body"></div>`;
+		li.querySelector('h2').textContent = p.title || '(untitled)';
+
+		const body = li.querySelector('.post-body');
+		if (window.marked && window.DOMPurify)
+			body.innerHTML = DOMPurify.sanitize(marked.parse(p.body || '', { breaks: true }));
+		else
+			body.textContent = p.body || '';
+		return li;
+	}
+
+	fetch('/posts.json?t=' + Date.now())
+		.then(r => r.ok ? r.json() : [])
+		.catch(() => [])
+		.then(posts => {
+			posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+			feed.replaceChildren(...posts.map(post));
+			if (!posts.length)
+				feed.innerHTML = '<li class="empty">nothing here yet.</li>';
+		});
+</script>

@@ -1,0 +1,36 @@
+name: Collapse history
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-sync
+  cancel-in-progress: false
+
+jobs:
+  collapse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Roll history into the epoch website commit
+        run: |
+          if [ "$(git rev-list --count HEAD)" = 1 ] && [ "$(git log -1 --format=%at)" = 0 ]; then
+            echo "already collapsed."
+            exit 0
+          fi
+          new=$(
+            GIT_AUTHOR_NAME='llama2700' \
+            GIT_AUTHOR_EMAIL='abhi.alavilli@gmail.com' \
+            GIT_AUTHOR_DATE='@0 +0000' \
+            GIT_COMMITTER_NAME='llama2700' \
+            GIT_COMMITTER_EMAIL='abhi.alavilli@gmail.com' \
+            GIT_COMMITTER_DATE='@0 +0000' \
+            git commit-tree "$(git rev-parse HEAD^{tree})" -m 'website'
+          )
+          git push --force-with-lease="main:${{ github.sha }}" origin "$new:refs/heads/main"
