@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aalavilli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=19">
+    <style>
+        .err {
+            text-align: center;
+            padding-top: 80px;
+        }
+        .err-code {
+            font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+            font-weight: 900;
+            font-size: clamp(5rem, 18vw, 11rem);
+            color: var(--hi);
+            line-height: 1;
+            letter-spacing: 4px;
+        }
+        .err-msg {
+            margin-top: 18px;
+            color: var(--dim);
+            font-style: italic;
+            font-size: 1.05rem;
+        }
+        .err-back {
+            display: inline-block;
+            margin-top: 50px;
+            color: var(--warm);
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+        .err-back:hover { color: var(--hi); }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="err">
+            <div class="err-code">404</div>
+            <div class="err-msg">cannot synthesize this page.</div>
+            <a href="/" class="err-back">&larr; home</a>
+        </div>
+    </main>
+    <script src="/topbar.js"></script>
+</body>
+</html>
