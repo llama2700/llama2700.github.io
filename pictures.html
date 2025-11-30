@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICTURES // ABHI ALAVILLI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <style>
+        /* Gallery specific styles */
+        .gallery-hero {
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .gallery-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            letter-spacing: 10px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .gallery-subtitle {
+            font-size: 14px;
+            color: var(--text-gray);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+            border: 1px solid var(--border-gray);
+            background: var(--bg-card);
+        }
+
+        .slideshow-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .slide:hover img {
+            filter: grayscale(0%);
+        }
+
+        .slide-caption {
+            padding: 20px;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .slide-caption p {
+            font-size: 14px;
+            color: var(--text-gray);
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .slide-number {
+            font-size: 11px;
+            color: var(--text-gray);
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        /* Navigation Arrows */
+        .slideshow-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--border-gray);
+            color: var(--text-gray);
+            padding: 10px 25px;
+            font-family: inherit;
+            font-size: 12px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--text-white);
+            color: var(--text-white);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Thumbnails */
+        .thumbnails {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid var(--border-gray);
+            overflow-x: auto;
+        }
+
+        .thumbnail {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--border-gray);
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            opacity: 1;
+            border-color: var(--text-white);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
+        .thumbnail.active img,
+        .thumbnail:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Grid Gallery */
+        .gallery-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border: 1px solid var(--border-gray);
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--text-white);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-overlay span {
+            font-size: 11px;
+            color: var(--text-white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border: 1px solid var(--border-gray);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 14px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .lightbox-caption {
+            text-align: center;
+            padding: 15px;
+            color: var(--text-gray);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        /* Empty state */
+        .empty-gallery {
+            text-align: center;
+            padding: 80px 20px;
+            border: 1px dashed var(--border-gray);
+            margin-top: 40px;
+        }
+
+        .empty-gallery p {
+            color: var(--text-gray);
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .empty-gallery code {
+            display: block;
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-gray);
+            color: var(--text-light);
+            font-size: 12px;
+            text-align: left;
+            overflow-x: auto;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-white);
+            border-bottom-color: var(--text-white);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .slideshow-container {
+                margin: 30px auto;
+            }
+
+            .thumbnails {
+                padding: 15px;
+            }
+
+            .thumbnail {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Retro scanlines overlay -->
+    <div class="scanlines"></div>
+
+    <div class="container">
+        <!-- Gallery Hero -->
+        <section class="gallery-hero">
+            <h1 class="gallery-title">PICTURES</h1>
+        </section>
+
+        <!-- Grid Gallery -->
+        <section class="gallery-section">
+            <div class="section-header">
+                <span class="bracket">[</span>
+                <h2>GALLERY</h2>
+                <span class="bracket">]</span>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_0013.jpg" alt="Gallery 1">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_2269.jpeg" alt="Gallery 2">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_6941.jpg" alt="Gallery 3">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_6991.jpg" alt="Gallery 4">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_6993.jpg" alt="Gallery 5">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7002.jpg" alt="Gallery 6">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7133.jpg" alt="Gallery 7">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7146.jpg" alt="Gallery 8">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7163.jpg" alt="Gallery 9">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7186.jpg" alt="Gallery 10">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7201.jpg" alt="Gallery 11">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_7669.jpg" alt="Gallery 12">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_8202.jpg" alt="Gallery 13">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_8274.jpg" alt="Gallery 14">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_8311.jpg" alt="Gallery 15">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_8850.jpg" alt="Gallery 16">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_8854.jpg" alt="Gallery 17">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9020.jpg" alt="Gallery 18">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9091.jpg" alt="Gallery 19">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9101.jpg" alt="Gallery 20">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9147.jpg" alt="Gallery 21">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9447.jpg" alt="Gallery 22">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9768.jpg" alt="Gallery 23">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="images/gallery/IMG_9862.jpg" alt="Gallery 24">
+                    <div class="gallery-item-overlay">
+                        <span>View</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2025 ABHI ALAVILLI // ALL RIGHTS RESERVED</p>
+                <p class="footer-small"><a href="index.html" class="footer-link">home</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="closeLightbox()">[CLOSE]</button>
+            <img src="" alt="Lightbox image" id="lightbox-img">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <script>
+        // Slideshow functionality
+        let currentSlide = 0;
+        let autoplayInterval = null;
+        const slides = document.querySelectorAll('.slide');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Handle wraparound
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === currentSlide) slide.classList.add('active');
+            });
+
+            // Update thumbnails
+            thumbnails.forEach((thumb, i) => {
+                thumb.classList.remove('active');
+                if (i === currentSlide) thumb.classList.add('active');
+            });
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        function toggleAutoplay() {
+            const btn = document.getElementById('autoplay-btn');
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+                btn.textContent = '▶ AUTO';
+            } else {
+                autoplayInterval = setInterval(() => changeSlide(1), 3000);
+                btn.textContent = '⏸ STOP';
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Lightbox functionality
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Random shuffle on load for variety
+        function shuffleGallery() {
+            const grid = document.querySelector('.gallery-grid');
+            const items = Array.from(grid.children);
+            items.sort(() => Math.random() - 0.5);
+            items.forEach(item => grid.appendChild(item));
+        }
+
+        // Uncomment to enable random shuffle on page load:
+        // shuffleGallery();
+    </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhi Alavilli</title>
+    <link rel="icon" type="image/webp" href="images/monster_1.webp" id="favicon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Retro scanlines overlay -->
+    <div class="scanlines"></div>
+    
+    <!-- ASCII Circuit Background -->
+    <div class="circuit-bg" id="circuit-bg"></div>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-ascii hero-ascii-large">
+                <pre id="ascii-name"></pre>
+            </div>
+            <p class="subtitle">[ HARDWARE ENGINEER ]</p>
+
+            <div class="stats-row">
+                <div class="monster-can-box" id="monster-can-box" title="Click for a new can!">
+                    <div class="monster-can-spinner">
+                        <img id="monster-can" src="images/monster_1.webp" alt="Monster Energy">
+                    </div>
+                </div>
+                <div class="stats-box-small">
+                    <div class="stat">
+                        <span class="stat-label">VISITORS:</span>
+                        <span class="stat-value counter"><span id="visitor-count">1337</span></span>
+                    </div>
+                </div>
+                <div class="gif-box">
+                    <img src="images/strokes_dragon.gif" alt="Dragon">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="section-header">
+                <span class="bracket">[</span>
+                <h2>ABOUT</h2>
+                <span class="bracket">]</span>
+            </div>
+            <div class="content-box">
+                <p>> ECE at the University of Illinois (Class of 2027 (?))</p>
+                <p>> Digital Systems, Computer Organization, Parallel Programming, Data Structures</p>
+                <p>> RTL Design, Functional + Formal Verification, Performance Modeling, Architecture, Networks</p>
+                <p class="blink-cursor">> _</p>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="section" id="experience">
+            <div class="section-header">
+                <span class="bracket">[</span>
+                <h2>EXPERIENCE</h2>
+                <span class="bracket">]</span>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <a href="https://www.tesla.com" target="_blank" rel="noopener"><img src="images/tesla_logo.png"
+                            alt="Tesla" class="company-logo"></a>
+                    <div class="exp-header-text">
+                        <span class="exp-company">AIHW Intern</span>
+                        <span class="exp-date">AUG 2025 - PRESENT</span>
+                    </div>
+                </div>
+                <div class="exp-role">Tesla // Austin, TX</div>
+                <div class="exp-tags">
+                    <span class="tag">SystemVerilog</span>
+                    <span class="tag">UVM</span>
+                    <span class="tag">VCFormal</span>
+                    <span class="tag">CI/CD</span>
+                    <span class="tag">Formal Datapath Verification</span>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <a href="https://oceancomm.co" target="_blank" rel="noopener"><img src="images/oceancomm_logo_t.png"
+                            alt="OceanComm" class="company-logo"></a>
+                    <div class="exp-header-text">
+                        <span class="exp-company">Hardware Engineering Intern</span>
+                        <span class="exp-date">JAN 2025 - AUG 2025</span>
+                    </div>
+                </div>
+                <div class="exp-role">OceanComm Inc. // Chicago, IL</div>
+                <div class="exp-tags">
+                    <span class="tag">FPGA</span>
+                    <span class="tag">Ethernet</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">UVM</span>
+                    <span class="tag">CDC</span>
+                    <span class="tag">cocotb</span>
+                    <span class="tag">Verilator</span>
+                    <span class="tag">Formal Property Verification</span>
+                </div>
+            </div>
+
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <a href="https://climas.illinois.edu/" target="_blank" rel="noopener"><img
+                            src="images/uiuc_logo.png" alt="UIUC" class="company-logo"></a>
+                    <div class="exp-header-text">
+                        <span class="exp-company">Research Assistant</span>
+                        <span class="exp-date">DEC 2023 - MAY 2025</span>
+                    </div>
+                </div>
+                <div class="exp-role"> Atmospheric Sciences // University of Illinois</div>
+                <div class="exp-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Bash</span>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <a href="https://chipspirit.com" target="_blank" rel="noopener"><img
+                            src="images/chipspirit_logo.png" alt="Chipspirit" class="company-logo"></a>
+                    <div class="exp-header-text">
+                        <span class="exp-company">FPGA Engineering Intern</span>
+                        <span class="exp-date">JUN 2024 - AUG 2024</span>
+                    </div>
+                </div>
+                <div class="exp-role">Chipspirit Technologies // Bengaluru, India</div>
+                <div class="exp-tags">
+                    <span class="tag">Xilinx</span>
+                    <span class="tag">AXI4</span>
+                    <span class="tag">DSP</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="section-header">
+                <span class="bracket">[</span>
+                <h2>CONTACT</h2>
+                <span class="bracket">]</span>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-item">
+                    <span class="contact-label">EMAIL:</span>
+                    <span class="contact-link">abhialavilli (at) gmail (dot) com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">LINKEDIN:</span>
+                    <a href="https://linkedin.com/in/abhi-alavilli" target="_blank"
+                        class="contact-link">linkedin.com/in/abhi-alavilli</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">GITHUB:</span>
+                    <a href="https://github.com/llama2700" target="_blank" class="contact-link">github.com/llama2700</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Now Playing -->
+        <section class="section" id="vibes">
+            <div class="section-header">
+                <span class="bracket">[</span>
+                <h2>NOW PLAYING</h2>
+                <span class="bracket">]</span>
+            </div>
+            <ul class="song-list">
+                <li><a href="https://open.spotify.com/album/5WrpCQmbTUZuzNxGCPUFSV" target="_blank" rel="noopener">Alfredo 2 - Freddie Gibbs</a></li>
+                <li><a href="https://open.spotify.com/album/00HuNBzUhRUQNgjNYY2gHF" target="_blank" rel="noopener">Haram - Armand Hammer</a></li>
+                <li><a href="https://open.spotify.com/album/4WnkQO4xD9ljQooB3VIxCV" target="_blank" rel="noopener">Comedown Machine - The Strokes</a></li>
+                <li><a href="https://open.spotify.com/album/64J8girYqmK86ebqBayrjQ" target="_blank" rel="noopener">Jazzmatazz Volume 1 - Guru</a></li>
+                <li><a href="https://open.spotify.com/album/6os1V7Wdb94RzAgmqH4nSF" target="_blank" rel="noopener">You Can Fly On My Aeroplane - Wee</a></li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2025 ABHI ALAVILLI // ALL RIGHTS RESERVED</p>
+                <p class="footer-small">LAST UPDATED: NOV 2025</p>
+                <p class="footer-small"><a href="pictures.html" class="footer-link">pictures</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
