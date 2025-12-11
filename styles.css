@@ -349,14 +349,14 @@ body {
     width: 50px;
     height: 50px;
     object-fit: contain;
-    filter: grayscale(100%) brightness(2);
-    opacity: 0.9;
-    transition: all 0.2s ease;
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .exp-item:hover .company-logo {
-    filter: grayscale(0%) brightness(1);
-    opacity: 1;
+    transform: scale(1.15);
+    filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 8px var(--accent-color));
 }
 
 .company-logo-placeholder {
